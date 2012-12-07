@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">XTEqlzr</string>
+    <string name="rate">Rate: </string>
+    <string name="sensitivity">Sensitivity: </string>
+    <string name="bars">Bars: </string>
+    <string name="preferences_activity_title">Preferences</string>
+    <string name="menu_preferences">Preferences</string>
+    <string name="menu_connect">Connect</string>
+    <string name="url">Url</string>
+    <string name="preferences_url">Url</string>
+    <string name="connect">Connect</string>
+    <string name="disconnect">Disconnect</string>
+    
+</resources>
