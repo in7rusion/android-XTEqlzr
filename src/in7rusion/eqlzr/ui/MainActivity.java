@@ -35,7 +35,6 @@ import android.widget.Toast;
 
 public class MainActivity extends OptionsMenuActivity implements Toaster {
 
-    private final String _defaultUrl = "http://192.168.1.66:9666/";
     private final Renderer[] _defaultRenderers = new Renderer[]{
             new BarGraphRenderer(Color.argb(200, 56, 138, 252)),
             new LedRenderer(),
@@ -206,7 +205,7 @@ public class MainActivity extends OptionsMenuActivity implements Toaster {
             _preferences.edit().putString(key, url.trim()).apply();
         }
         if (url == none) {
-            url = _defaultUrl;
+            url = Properties.defaultUrl;
             _preferences.edit().putString(key, url).apply();
         }
         return url.endsWith("/") ? url : url + '/';

@@ -2,15 +2,16 @@ package in7rusion.lights;
 
 import in7rusion.eqlzr.Logger;
 import in7rusion.eqlzr.Toaster;
+import in7rusion.rest.DeleteTask;
 import in7rusion.rest.PutTask;
 import in7rusion.rest.Rest;
 import in7rusion.rest.RestErrorCallback;
 
+import java.util.Arrays;
+
 public final class RestLights implements Lights, RestErrorCallback {
 
-    private static final String PROGRAM = "program";
-
-    private static final String RESET = "reset";
+    private static final String TREE = "tree";
 
     private static final String LINE = "line/";
 
@@ -34,13 +35,14 @@ public final class RestLights implements Lights, RestErrorCallback {
     }
 
     @Override
-    public void set(final boolean[] line) {
-        String url = _url + PROGRAM;
-        Program program = new Program(line);
-
-        _logger.info("POST " + url + " " + program);
-
-        Rest.postJson(url, program, null, this);
+    public void set(final int[] lines) {
+        String url = _url + TREE;
+        _logger.info("DELETE " + url);
+        new DeleteTask(url, null, this).execute();
+        if (lines.length > 0) {
+            _logger.info("POST " + url + " " + Arrays.toString(lines));
+            Rest.postJson(url, lines, null, this);
+        }
     }
 
     @Override
@@ -48,26 +50,4 @@ public final class RestLights implements Lights, RestErrorCallback {
         _toaster.toast(error);
     }
 
-}
-
-final class Program {
-    public final String author = "Szatan";
-    public final String name = "XTEqlzr";
-    public final String program;
-
-    public Program(final boolean[] line) {
-        StringBuilder sb = new StringBuilder();
-        sb.append('(');
-        for (int i = 0; i < line.length; i++) {
-            if (line[i])
-                sb.append(i).append(' ');
-        }
-        sb.append("; 6666)");
-        program = sb.toString();
-    }
-
-    @Override
-    public String toString() {
-        return program;
-    }
 }

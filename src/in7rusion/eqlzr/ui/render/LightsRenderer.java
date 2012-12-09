@@ -11,18 +11,27 @@ public class LightsRenderer extends DelayedRenderer {
 
 
     public LightsRenderer(final Lights lights) {
-        super(666);
+        super(999);
         _lights = lights;
     }
 
     @Override
     protected void onFFTRender(final Gx gx, final Adjustables adjustables, final double[] magnitudes) {
         int threshold = adjustables.sensitivity / 2;
-        boolean[] line = new boolean[N];
+        int n = 0;
         for (int i = 0; i < N; i++) {
-            line[i] = magnitudes[i] > threshold;
+            if (magnitudes[i] > threshold)
+                ++n;
         }
-        _lights.set(line);
+        int[] lines = new int[n];
+        if (n > 0) {
+            n = 0;
+            for (int i = 0; i < N; i++) {
+                if (magnitudes[i] > threshold)
+                    lines[n++] = i;
+            }
+        }
+        _lights.set(lines);
     }
 
 }

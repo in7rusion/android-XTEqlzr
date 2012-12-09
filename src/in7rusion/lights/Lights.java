@@ -4,6 +4,6 @@ public interface Lights {
 
     void set(int line);
 
-    void set(boolean[] line);
+    void set(int[] lines);
 
 }
